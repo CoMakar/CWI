@@ -42,9 +42,10 @@ CWI - is a command-line instrument capable of generating and playing Morse code 
 
     ```bash
     pip install .
-    # or
+    # - or -
     python3 -m pip install .
-    # or (if you have multiple python versions installed)
+    # - or - 
+    # (if you have multiple python versions installed)
     py -*.* -m pip install .
     ```
 
@@ -84,16 +85,17 @@ Pre-built version is available. You can download it from the [Releases](https://
 
     ```bash
     make all
-    # or
+    # - or -
     pyinstaller setup.spec
     ```
 
-4. Navigate to ./dist/ directory to find the executable
+4. Navigate to ./dist/ or ./bin/cwi directory to find the executable
 
     ```bash
-    cd bin
-    cwi sos
-    # or
+    cd ./bin/cwi
+    ./cwi sos
+    # - or -
+    cd ./dist
     ./cwi sos
     ```
 
