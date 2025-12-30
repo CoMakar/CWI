@@ -13,7 +13,7 @@ from loguru import logger
 from pyaudio import PyAudio
 
 logger.remove()
-logger.level("NOSHOW", 999, "black", "X")
+logger.level("OFF", 999, "black", "X")
 console = Console()
 
 import cwi.tone_generators as tone_generators
@@ -197,10 +197,10 @@ class App:
     "-t",
     type=click.Choice(
         [
-            ToneGeneratorType.SINE.value,
-            ToneGeneratorType.SAW.value,
-            ToneGeneratorType.TRIANGLE.value,
-            ToneGeneratorType.SQUARE.value,
+            ToneGeneratorType.SINE,
+            ToneGeneratorType.SAW,
+            ToneGeneratorType.TRIANGLE,
+            ToneGeneratorType.SQUARE,
         ]
     ),
     default=ToneGeneratorType.SINE,
@@ -243,7 +243,7 @@ class App:
     type=click.Path(exists=False, writable=True),
     help="The file to write audio to. If specified, audio will be written to the output file rather than played back [Optional]",
 )
-def cli(
+def main(
     message: tuple[str],
     tone_generator_type: str,
     frequency: float,
@@ -253,7 +253,7 @@ def cli(
     input_file: TextIO,
     output_file: str,
 ):
-    log_level = "DEBUG" if debug else "NOSHOW"
+    log_level = "DEBUG" if debug else "OFF"
     logger.add(RichHandler(), level=log_level, format=CONSOLE_FORMAT)
     logger.debug("Logger initialized")
     
@@ -304,4 +304,4 @@ def cli(
 
 
 if __name__ == "__main__":
-    cli()
+    main()
