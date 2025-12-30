@@ -1,6 +1,7 @@
 .VSCodeCounter/
 .vscode/
 .versions/
+.idea/
 build/
 dist/
 bin/

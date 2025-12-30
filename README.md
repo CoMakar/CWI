@@ -86,7 +86,7 @@ Pre-built version is available. You can download it from the [Releases](https://
     ```bash
     make all
     # - or -
-    pyinstaller setup.spec
+    pyinstaller cwi.spec
     ```
 
 4. Navigate to ./dist/ or ./bin/cwi directory to find the executable

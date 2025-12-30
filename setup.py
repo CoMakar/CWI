@@ -1,7 +1,7 @@
-
 import os
-from setuptools import setup, find_packages
+
 from distutils.command.build import build
+from setuptools import setup, find_packages
 
 
 class BuildCommand(build):
@@ -10,9 +10,9 @@ class BuildCommand(build):
         self.build_base = "setuptools-build"
 
 
-def load_dotenv(path='.env'):
+def load_env(path: str):
     if not os.path.exists(path):
-        return
+        raise FileNotFoundError(f"File '{path}' not found")
 
     with open(path) as env:
         for line in env:
@@ -20,11 +20,12 @@ def load_dotenv(path='.env'):
             line = line.strip()
             if not line or line.startswith('#'):
                 continue
-            
+
             key, value = line.split('=', 1)
             os.environ[key] = value
 
-load_dotenv()
+
+load_env(".build_info")
 
 install_requires = [
     "numpy",
@@ -38,8 +39,8 @@ dev_requires = [
     "pyinstaller",
 ]
 
-version = os.getenv("BUILD_VERSION")
-name = os.getenv("BUILD_NAME")
+version = os.getenv("VERSION")
+name = os.getenv("PKG_NAME")
 
 setup(
     name=name,
@@ -48,7 +49,6 @@ setup(
     description="CLI morse audio generator",
     long_description=open("README.md").read(),
     long_description_content_type="text/markdown",
-    
     python_requires=">=3.11",
     packages=find_packages("src"),
     package_dir={"": "src"},
@@ -63,7 +63,7 @@ setup(
     ],
     entry_points={
         "console_scripts": [
-            f"{name} = cwi.app:cli",
+            f"{name} = scripts.cwi:main",
         ],
     },
     cmdclass={"build": BuildCommand},
